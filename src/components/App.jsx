@@ -22,7 +22,9 @@ class App extends Component {
   }
 
   isAlreadyExist(name) {
-    return this.state.contacts.some(elem => elem.name === name);
+    return this.state.contacts.some(
+      elem => elem.name.toLowerCase() === name.toLowerCase()
+    );
   }
 
   isEmptyString(str) {
@@ -31,10 +33,13 @@ class App extends Component {
 
   addContact = (name, phone) => {
     name = name.trim();
+    phone = phone.trim();
+
     if (this.isEmptyString(name) || this.isEmptyString(phone)) {
       Notify.failure("U can't add empty contact");
       return;
     }
+
     if (this.isAlreadyExist(name)) {
       Notify.failure(
         'Contact with same name is already exist please entre new name'
